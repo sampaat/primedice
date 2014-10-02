@@ -23,7 +23,7 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
 
 1. Game
 
-contains the recorded bets, each with the following properties:
+	contains the recorded bets, each with the following properties:
 
 - game_id	ID of bet
 - user_id	ID of player
@@ -37,7 +37,7 @@ contains the recorded bets, each with the following properties:
 
 2. Users
 
-contains the following information/statistics about users:
+	contains the following information/statistics about users:
 
 - user_id	ID of player
 - user_num	number of bets recorded by the player
@@ -49,7 +49,7 @@ contains the following information/statistics about users:
 
 3. Daystat
 
-contains the following statistics of daily data:
+	contains the following statistics of daily data:
 
 - daystat_day	date of the day
 - daystat_num	number of recorded bets on the given day
@@ -60,9 +60,9 @@ contains the following statistics of daily data:
 
 4. Subseq
 
-contains information about subsequent bets of the players
-data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_calc.awk* script
-(2014-02-13 00:00:00 - 2014-03-09 23:59:59)
+	contains information about subsequent bets of the players
+	data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_calc.awk* script
+	(2014-02-13 00:00:00 - 2014-03-09 23:59:59)
 
 - game_id			ID of bet
 - user_id			ID of player
@@ -71,10 +71,11 @@ data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_ca
 - last_outcome		outcome of last bet
 - last_pay			change in account after the game in BTC
 
-4. Balance
+5. Balance
 
-contains approximate information of the account balance of the players
-data based on the game_pay ammounts of captured subsequent plays of users using the *pd_account.awk* script
+	contains approximate information of the account balance of the players
+	data based on the game_pay ammounts of captured subsequent plays of users using the *pd_account.awk* script
+	(2014-02-13 00:00:00 - 2014-03-09 23:59:59)
 
 - game_id		ID of bet
 - user_balance	account balance of the user of game_id before playing the given bet
