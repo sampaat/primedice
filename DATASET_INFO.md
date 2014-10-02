@@ -3,7 +3,11 @@
 The origin of the primedice dataset is the on-line gambling site primedice.com. This site uses bitcoin for betting, and runs a game of percentage-based dice-roll. As part of the homepage there is a constantly updating “all bets” section, where one can see information about recently played bets. Using the mechanism of the scripts that refresh the data on the homepage, we were able to make a watcher script, that is able to ping the game server for data on recent bets. Using this script on separate servers, we were able to catch some times over 90% of all the placed bets, with information about the time, user, outcome, and game type.
 
 The script (*pd_listener.sh*) works as follows:
+<<<<<<< HEAD
 - It pings the [primedice.com/api/get_bets.php] and in catch the response, that is a JSON table of the last 10 bets
+=======
+- It pings the primedice.com/api/get_bets.php and in catch the response, that is a JSON table of the last 10 bets
+>>>>>>> origin/master
 - The script transforms the JSON file to csv-type lines, compare the new lines to the last 10 lines, and concatenates the new ones to the data file of the given day (*pd_transform.py*)
 - Then repeats the process immediately
 
@@ -13,7 +17,7 @@ The script was used on varying number of servers, from 2014-02-04 to 2014-05-13.
 
 ##Accessibility of the dataset
 
-Soon
+The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/casjobs/default.aspx) server of Eötvös Loránd University
 
 ##Tables of the SQL dataset
 
@@ -53,7 +57,11 @@ contains the following statistics of daily data:
 - daystat_max	game_id of the last recorded bet of the given day
 - daystat_perc	estimated rate of bets recorded at the given day (0 - 1)
 
+<<<<<<< HEAD
 4. Subseq
+=======
+###Subseq
+>>>>>>> origin/master
 
 contains information about subsequent bets of the players
 data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_calc.awk* script

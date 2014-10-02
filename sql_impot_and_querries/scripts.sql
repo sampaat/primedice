@@ -49,8 +49,10 @@ game_pay		FLOAT
 )
 
 
-SELECT DISTINCT game_id, user_id, game_time, game_pwin, game_multip, game_roll, game_outcome, game_bet, game_pay INTO Game 
+SELECT DISTINCT game_id, user_id, min(game_time), game_pwin, game_multip, game_roll, game_outcome, game_bet, game_pay
+INTO Game 
 FROM InitDist
+GROUP BY game_id, user_id, game_pwin, game_multip, game_roll, game_outcome, game_bet, game_pay; --sometimes there are duplicates in game_id, so we only take the first occurrence
 
 --create user table
 
@@ -75,7 +77,7 @@ SUM(game_bet) AS user_betsum,
 AVG(game_bet) AS user_betavg,
 MIN(game_bet) AS user_betmin,
 MAX(game_bet) AS user_betmax,
-CAST(CASE WHEN user_id < 24 THEN 1 ELSE 0 END AS BIT) AS user_fake
+CAST(CASE WHEN user_id < 24 THEN 1 ELSE 0 END AS BIT) AS user_fake  --outlier users with repeating user names... obviously fakes
 FROM Game
 GROUP BY user_id
 
@@ -100,37 +102,14 @@ ALTER TABLE Daystat DROP COLUMN daystat_perc
 ALTER TABLE Daystat ADD daystat_perc AS (CAST(daystat_num AS FLOAT)/(daystat_max-daystat_min));
 SELECT * FROM Daystat
 
---calculate differences between subsequent plays --> turns out its not so memory efficient, so do it with awk instead
-
-WITH x AS 
-(
-  SELECT game_id,
-  user_id,
-  game_time,
-  game_bet,
-  game_outcome,
-  game_pay,
-  rn = ROW_NUMBER() OVER (ORDER BY user_id)
-  FROM Game
-  WHERE  game_time BETWEEN '2014\02\13' AND '2014\03\09'
-)
-SELECT x.game_id,
-  x.user_id,
-  return_time = DATEDIFF(MINUTE, x2.game_time, x.game_time),	--time diff
-  return_bet = x.game_bet - x2.game_bet,						--change in bet
-  last_outcome = x2.game_outcome,								--ouctome of the last game
-  last_pay = x2.game_pay										--payout of last game
-
-FROM x LEFT OUTER JOIN x AS x2 ON x.rn = x2.rn + 1
-WHERE x2.user_id = x.user_id
-
---data export to make table of subsequent plays
+--data export to make table of subsequent plays and accounts
 
 checkpoint
   SELECT user_id,
   game_id,
   DATEDIFF(mi,'2014-02-13 00:00:00',game_time) AS game_timediff,
   game_bet,
+  game_pwin,
   game_outcome,
   game_pay
   FROM Game
@@ -145,6 +124,7 @@ game_id			INT PRIMARY KEY,
 user_id			INT,
 returt_time		INT, --in minutes
 return_betchange FLOAT,
+return_pwin		FLOAT,
 last_outcome	BIT,
 last_pay		FLOAT
 )
@@ -158,3 +138,22 @@ FIELDTERMINATOR = ',',
 ROWTERMINATOR = '0x0a'
 )
 GO
+
+--calculate the result with pd_account.awk, then import back
+
+CREATE TABLE Balance
+(
+game_id	INT PRIMARY KEY, 
+balance FLOAT		
+)
+
+--load table from unix made csv
+
+BULK
+INSERT Balance
+FROM '\\retdb02\Data\Temp\user\sampaat\balance_res.dat'
+WITH
+(
+FIELDTERMINATOR = ',',
+ROWTERMINATOR = '0x0a'
+)
