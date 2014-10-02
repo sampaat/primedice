@@ -21,21 +21,21 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
 
 ##Tables of the SQL dataset
 
-1. Game
+1. __Game__
 
 	contains the recorded bets, each with the following properties:
 
-  - game_id			ID of bet
-  - user_id			ID of player
-  - game_time		time of bet (minute precision)
-  - game_pwin		type of the game / probability of winning in percent (0.01% - 98%)
-  - game_multip		prize multiplier in case of winning (1.01202 - 9900)
-  - game_roll		rolled random number for the game (0-100)
-  - game_outcome	outcome of the game (0 if lose - 1 if win)
-  - game_bet		bet placed in the game in BTC (0 - inf)
-  - game_pay		change in account after the game in BTC
+  - _game_id_			ID of bet
+  - _user_id_			ID of player
+  - _game_time_		time of bet (minute precision)
+  - _game_pwin_		type of the game / probability of winning in percent (0.01% - 98%)
+  - _game_multip_		prize multiplier in case of winning (1.01202 - 9900)
+  - _game_roll_		rolled random number for the game (0-100)
+  - _game_outcome_	outcome of the game (0 if lose - 1 if win)
+  - _game_bet_		bet placed in the game in BTC (0 - inf)
+  - _game_pay_		change in account after the game in BTC
 
-2. Users
+2. __Users__
 
 	contains the following information/statistics about users:
 
@@ -47,7 +47,7 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
   - _user_betmax_	maximum of recorded bet amounts of the player in BTC
   - _user_fake_	is 1 if player is presumably a fake user
 
-3. Daystat
+3. __Daystat__
 
 	contains the following statistics of daily data:
 
@@ -58,7 +58,7 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
   - _daystat_perc_	estimated rate of bets recorded at the given day (0 - 1)
 
 
-4. Subseq
+4. __Subseq__
 
 	contains information about subsequent bets of the players
 	data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_calc.awk* script
@@ -71,11 +71,11 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
   - _last_outcome_		outcome of last bet
   - _last_pay_			change in account after the game in BTC
 
-5. Balance
+5. __Balance__
 
 	contains approximate information of the account balance of the players
 	data based on the game_pay ammounts of captured subsequent plays of users using the *pd_account.awk* script
 	(2014-02-13 00:00:00 - 2014-03-09 23:59:59)
 
-  - game_id			ID of bet
-  - user_balance	account balance of the user of game_id before playing the given bet
+  - _game_id_			ID of bet
+  - _user_balance_	account balance of the user of game_id before playing the given bet
