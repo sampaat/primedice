@@ -39,23 +39,23 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
 
 	contains the following information/statistics about users:
 
-  - user_id		ID of player
-  - user_num	number of bets recorded by the player
-  - user_betsum	sum of recorded bet amounts by the player in BTC
-  - user_betawg	average of recorded bet amounts of the player in BTC 
-  - user_betmin	minimum of recorded bet amounts of the player in BTC
-  - user_betmax	maximum of recorded bet amounts of the player in BTC
-  - user_fake	is 1 if player is presumably a fake user
+  - _user_id_		ID of player
+  - _user_num_	number of bets recorded by the player
+  - _user_betsum_	sum of recorded bet amounts by the player in BTC
+  - _user_betawg_	average of recorded bet amounts of the player in BTC 
+  - _user_betmin_	minimum of recorded bet amounts of the player in BTC
+  - _user_betmax_	maximum of recorded bet amounts of the player in BTC
+  - _user_fake_	is 1 if player is presumably a fake user
 
 3. Daystat
 
 	contains the following statistics of daily data:
 
-  - daystat_day		date of the day
-  - daystat_num		number of recorded bets on the given day
-  - daystat_min		game_id of the first recorded bet of the given day
-  - daystat_max		game_id of the last recorded bet of the given day
-  - daystat_perc	estimated rate of bets recorded at the given day (0 - 1)
+  - _daystat_day_		date of the day
+  - _daystat_num_		number of recorded bets on the given day
+  - _daystat_min_		game_id of the first recorded bet of the given day
+  - _daystat_max_		game_id of the last recorded bet of the given day
+  - _daystat_perc_	estimated rate of bets recorded at the given day (0 - 1)
 
 
 4. Subseq
@@ -64,12 +64,12 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
 	data created from the days where Daystat.daystat_perc > 0.7 using the *subseq_calc.awk* script
 	(2014-02-13 00:00:00 - 2014-03-09 23:59:59)
 
-  - game_id				ID of bet
-  - user_id				ID of player
-  - return_time			time elapsed since last bet in minutes
-  - return_betchange	change in bet amount compared to last bet in BTC
-  - last_outcome		outcome of last bet
-  - last_pay			change in account after the game in BTC
+  - _game_id_				ID of bet
+  - _user_id_				ID of player
+  - _return_time_			time elapsed since last bet in minutes
+  - _return_betchange_	change in bet amount compared to last bet in BTC
+  - _last_outcome_		outcome of last bet
+  - _last_pay_			change in account after the game in BTC
 
 5. Balance
 
