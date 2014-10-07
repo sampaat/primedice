@@ -48,9 +48,10 @@ game_bet		FLOAT,
 game_pay		FLOAT
 )
 
+--fill game table with games
 
+INSERT INTO Game
 SELECT DISTINCT game_id, user_id, min(game_time), game_pwin, game_multip, game_roll, game_outcome, game_bet, game_pay
-INTO Game 
 FROM InitDist
 GROUP BY game_id, user_id, game_pwin, game_multip, game_roll, game_outcome, game_bet, game_pay; --sometimes there are duplicates in game_id, so we only take the first occurrence
 
@@ -93,14 +94,15 @@ SELECT
 DATEADD(dd, 0, DATEDIFF(dd, 0, game_time)) AS daystat_day,
 COUNT(DISTINCT game_id) AS daystat_num,
 MIN(game_id) AS daystat_min,
-MAX(game_id) AS daystat_max
+MAX(game_id) AS daystat_max,
+SUM(game_bet) AS daystat_bet
 GROUP BY  DATEADD(dd, 0, DATEDIFF(dd, 0, game_time))
 INTO Daystat
 FROM Game
 
-ALTER TABLE Daystat DROP COLUMN daystat_perc
+
 ALTER TABLE Daystat ADD daystat_perc AS (CAST(daystat_num AS FLOAT)/(daystat_max-daystat_min));
-SELECT * FROM Daystat
+
 
 --data export to make table of subsequent plays and accounts
 

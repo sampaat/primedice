@@ -55,6 +55,7 @@ The PrimeDice dataset is publicly accessible on [CasJobs](http://nm.vo.elte.hu/c
   - _daystat_num_		number of recorded bets on the given day
   - _daystat_min_		game_id of the first recorded bet of the given day
   - _daystat_max_		game_id of the last recorded bet of the given day
+  - _daystat_betsum_	sum of bets placed on the given day in BTC
   - _daystat_perc_	estimated rate of bets recorded at the given day (0 - 1)
 
 
